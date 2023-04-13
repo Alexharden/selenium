@@ -24,11 +24,11 @@ for tag in tags:
 
 #取得上一頁的文章標題
 
-# link = driver.find_element(By.LINK_TEXT, "‹ 上頁")
-# link.click() #模擬使用者點擊上一頁
-# tags = driver.find_elements(By.CLASS_NAME, "title")
-# for tag in tags:
-#     print(tag.text)
+link = driver.find_element(By.LINK_TEXT, "‹ 上頁")
+link.click() #模擬使用者點擊上一頁
+tags = driver.find_elements(By.CLASS_NAME, "title")
+for tag in tags:
+    print(tag.text)
 
 
 #用for迴圈 重複取得上一頁的文章標題
