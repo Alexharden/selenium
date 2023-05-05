@@ -7,8 +7,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 import os
 import time
 import glob
+
 #自動下載及安裝webdriver
 driver = webdriver.Chrome(ChromeDriverManager().install())
+options = webdriver.ChromeOptions()
+download_defult = os.path.abspath('C://Users//HsiehHa//Desktop//路徑測試')	
+prefs = {'download.default_directory': download_defult}
+options.add_experimental_option('prefs', prefs)
 
 #連線到 LeetCode登入頁面
 driver.get('https://worker.stage.myviewboard.cloud/') #這是測試用網址
@@ -25,28 +30,32 @@ login = driver.find_element(By.XPATH,'//button[@type="button"]')
 login.send_keys(Keys.ENTER)
 time.sleep(6)
 
-
-download = 'C:\\Users\\HsiehHa\\Downloads\\'
-filename = 'Y2 ST Animals and Living Things in  their habitat 2022 -23 1st half.flipchart'
-file_path = os.path.join(download, filename)
-
+# download = 
+# filename = 'Y2 ST Animals and Living Things in  their habitat 2022 -23 1st half.flipchart'
+# file_path = os.path.join(download, filename)
 
 
-#尋找 "原檔" 存在列表中，下載第一個值，並按下點擊
-download_files = driver.find_elements(By.XPATH, '//a[text()="原檔"]')[0]
 
-download_files.click()
+download_files = driver.find_elements(By.XPATH, '//a[text()="原檔"]')
 
+
+for i in range(len(download_files)):
+    download_files[i].click()
+    time.sleep(60)
+    # filename = 'Y2 ST Animals and Living Things in  their habitat 2022 -23 1st half.flipchart'  # 將filename設為下載的檔案名稱
+    # file_path = os.path.join(download_path, filename)
+    # while not os.path.exists(file_path):
+    #     time.sleep(1)
+    # print('檔案下載完成')
+
+    
+# start_time = time.time()
+# while not os.path.exists(file_path):
+#     time.sleep(1)
 # 等待檔案下載
-start_time = time.time()
-while not os.path.exists(file_path):
-    time.sleep(1)
 
 
-#上傳檔案
-upload_file = driver.find_elements(By.XPATH, '//input[@type="file"]')[0]
-upload_file.send_keys('C:\\Users\\HsiehHa\\Downloads\\1.olf')
-time.sleep(3)
+
 
 
 
