@@ -41,7 +41,7 @@ download_files = driver.find_elements(By.XPATH, '//a[text()="原檔"]')
 
 for i in range(len(download_files)):
     download_files[i].click()
-    time.sleep(60)
+    time.sleep(10)
     # filename = 'Y2 ST Animals and Living Things in  their habitat 2022 -23 1st half.flipchart'  # 將filename設為下載的檔案名稱
     # file_path = os.path.join(download_path, filename)
     # while not os.path.exists(file_path):

@@ -4,11 +4,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys #鍵盤
 from selenium.webdriver.support.select import Select   # 使用 Select 對應下拉選單
 from selenium.webdriver.support.ui import WebDriverWait
-import os
-import time
-import glob
-import shutil
-import pyperclip
+import os, time, glob, shutil, pyperclip, pyautogui
+
+from PIL import Image
 #自動下載及安裝webdriver
 
 prefs = {'download.default_directory': os.path.abspath('file_download')} #指定到檔案相對路徑用os.path.abspath回給絕對路徑
@@ -32,35 +30,13 @@ password.send_keys('DCC')
 login = driver.find_element(By.XPATH,'//button[@type="button"]')
 login.send_keys(Keys.ENTER)
 time.sleep(3)
-
-#取得整個網頁的 建立時間和檔案名稱
 create_time = driver.find_elements(By.XPATH,'//td')
 files_name = driver.find_elements(By.XPATH,'//td')
-test1 = create_time[1].text.replace(":", "-")  #處理字串 replace(填入被取代的值, 取代值)
-new_filename = test1 + ' '+ files_name[3].text #組成新字串
-print(new_filename) # 列印出來確認新字串的名稱
 
-#搜尋網頁上的第一個原檔
-download_buttons = driver.find_elements(By.XPATH, '//a[text()="原檔"]') [0]
-dowload_file = download_buttons.click()
-#WebDriverWait(driver,最大可以的時間) until 當條件成立時回傳True繼續往下執行 || lambda d: d會接受 len(內的結果當結果為True回傳到d)
-WebDriverWait(driver, 120).until(lambda d: len(os.listdir('file_download')) > 0) 
-time.sleep(3)
 
-#將下載下來的檔案改名稱
-#os.path.join(os.path.abspath) 組成完整路徑
-#glob.glob 會回傳符合搜尋條件的檔案路徑，這裡使用 * 來代表所有檔案。
-# [0] glob.glob 回傳的是一個列表，而我們只需要第一個符合搜尋條件的檔案，所以使用索引 [0] 取得第一個符合搜尋條件的檔案路徑。
-filename = glob.glob(os.path.join(os.path.abspath('file_download'), '*'))[0]
-
-#filename 是上一個函式 glob.glob 取得的檔案路徑。
-#將檔案改名
-os.rename(filename, os.path.join(os.path.abspath('file_download'), new_filename))
-
-time.sleep(6)
-pyperclip.copy(new_filename)
-#刪除路徑資料夾內的所有檔案
-for delectfile in os.listdir('file_download'):
-    os.remove(os.path.join('file_download', delectfile))
-
-time.sleep(3)   
+for i in range(0, len(create_time), 9):
+    print(i)
+    # test1 = create_time[9*i+1].text.replace(':', '-')  # 處理字串
+    # file_name = files_name[9*i + 3].text
+    # new_file_name = test1 + ' '+ file_name
+    # print(f'下載 {new_file_name}')

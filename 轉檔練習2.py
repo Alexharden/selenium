@@ -9,7 +9,7 @@ import time
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.maximize_window() #視窗大化
 #連線到 LeetCode登入頁面
-driver.get("https://worker.myviewboard.cloud/")
+driver.get("https://worker.stage.myviewboard.cloud/")
 # driver.implicitly_wait(40)
 time.sleep(6)
 #輸入帳號密碼 按下登入
